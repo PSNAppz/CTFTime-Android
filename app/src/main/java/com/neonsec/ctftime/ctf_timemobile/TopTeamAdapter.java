@@ -36,13 +36,11 @@ public class TopTeamAdapter extends RecyclerView.Adapter<TopTeamAdapter.MyViewHo
     public void onBindViewHolder(MyViewHolder holder, int position) {
         TopTeams team = teamList.get(position);
         holder.teamName.setText(""+team.getName());
-        holder.teamPoint.setText(""+team.getPos());
+        holder.teamPoint.setText(""+team.getPoints());
         if(team.getPos() != 0){
-            holder.image.setVisibility(View.INVISIBLE);
+            holder.image.setImageResource(R.drawable.ic_team);
         }
-        holder.image.setVisibility(View.INVISIBLE);
         if (team.getPos() == 0){
-            holder.image.setVisibility(View.VISIBLE);
             holder.image.setImageResource(R.drawable.ic_trophy);
         }
 

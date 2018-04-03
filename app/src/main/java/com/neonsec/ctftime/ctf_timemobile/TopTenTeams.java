@@ -34,7 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TopTenTeams extends AppCompatActivity  implements NavigationView.OnNavigationItemSelectedListener{
-    final String API_URL = "https://api.github.com/users?since=135";
+    final String API_URL = "https://ctftime.org/api/v1/top/2018/";
     private TextView teamName;
     private TextView points;
     private RecyclerView recyclerView;
@@ -183,15 +183,13 @@ public class TopTenTeams extends AppCompatActivity  implements NavigationView.On
                         else{
                             Cardcolor = "#FAFAFA";
                         }
-                        JSONArray test = new JSONArray(response);
-                        JSONObject current = (JSONObject) new JSONTokener(test.getString(i)).nextValue();
 
-                        //JSONObject object = (JSONObject) new JSONTokener(response).nextValue();
-                        //JSONArray year = object.getJSONArray("2018");
-                        //JSONObject current = (JSONObject) new JSONTokener(year.getString(i)).nextValue();
+                        JSONObject object = (JSONObject) new JSONTokener(response).nextValue();
+                        JSONArray year = object.getJSONArray("2018");
+                        JSONObject current = (JSONObject) new JSONTokener(year.getString(i)).nextValue();
                         //Log.i("Top Team",current.getString("team_name"));
-                        String Tname = current.getString("login");
-                        String Tpoints = current.getString("id");
+                        String Tname = current.getString("team_name");
+                        String Tpoints = current.getString("points");
                         team = new TopTeams(Tname,Float.parseFloat(Tpoints),Cardcolor,i);
                         teamList.add(team);
                         adapter.notifyDataSetChanged();
