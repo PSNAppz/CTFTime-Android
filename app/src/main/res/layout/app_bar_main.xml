@@ -20,7 +20,21 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_main" />
+    <include
+        android:id="@+id/inc"
+        layout="@layout/content_main"
+        android:layout_width="match_parent"
+        android:layout_height="503dp"
+        tools:layout_editor_absoluteY="84dp" />
+
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        ads:adSize="SMART_BANNER"
+        ads:adUnitId="ca-app-pub-3041411382010702/4985214827"/>
 
 
 </android.support.design.widget.CoordinatorLayout>
