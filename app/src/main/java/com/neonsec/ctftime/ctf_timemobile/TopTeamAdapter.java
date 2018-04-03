@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -34,8 +35,21 @@ public class TopTeamAdapter extends RecyclerView.Adapter<TopTeamAdapter.MyViewHo
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         TopTeams team = teamList.get(position);
-        holder.teamName.setText("Team : "+team.getName());
-        holder.teamPoint.setText("Points : "+team.getPoints());
+        holder.teamName.setText(""+team.getName());
+        holder.teamPoint.setText(""+team.getPos());
+        if(team.getPos() != 0){
+            holder.image.setVisibility(View.INVISIBLE);
+        }
+        holder.image.setVisibility(View.INVISIBLE);
+        if (team.getPos() == 0){
+            holder.image.setVisibility(View.VISIBLE);
+            holder.image.setImageResource(R.drawable.ic_trophy);
+        }
+
+        if(team.getPos() == 2){
+            holder.teamName.setTextColor(Color.WHITE);
+            holder.teamPoint.setTextColor(Color.WHITE);
+        }
         holder.card.setCardBackgroundColor(Color.parseColor(team.getColor()));
 
     }
@@ -48,12 +62,14 @@ public class TopTeamAdapter extends RecyclerView.Adapter<TopTeamAdapter.MyViewHo
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView teamName, teamPoint;
         public CardView card;
+        public ImageView image;
 
         public MyViewHolder(View view) {
             super(view);
             teamName = (TextView) view.findViewById(R.id.tname);
             teamPoint = (TextView) view.findViewById(R.id.tpoints);
             card = (CardView) view.findViewById(R.id.card_view);
+            image = (ImageView) view.findViewById(R.id.thumbnail);
         }
     }
 }

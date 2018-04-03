@@ -6,13 +6,14 @@
     android:layout_height="match_parent"
     android:background="@color/cardview_dark_background"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.neonsec.ctftime.ctf_timemobile.TopTenTeams"
-    tools:showIn="@layout/activity_main">
+>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:clipToPadding="false"
         android:scrollbars="vertical" />
 

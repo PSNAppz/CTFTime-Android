@@ -9,15 +9,20 @@ public class TopTeams {
 
 
 
+    private int pos;
+
+
+
     private float points;
 
     public TopTeams() {
     }
 
-    public TopTeams(String name, float points,String color) {
+    public TopTeams(String name, float points,String color,int pos) {
         this.name = name;
         this.points = points;
         this.color = color;
+        this.pos = pos;
 
     }
 
@@ -44,5 +49,13 @@ public class TopTeams {
 
     public String getColor() {
         return color;
+    }
+
+    public int getPos() {
+        return pos;
+    }
+
+    public void setPos(int pos) {
+        this.pos = pos;
     }
 }
