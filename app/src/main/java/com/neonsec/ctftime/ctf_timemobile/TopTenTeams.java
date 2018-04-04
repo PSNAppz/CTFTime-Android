@@ -2,7 +2,6 @@ package com.neonsec.ctftime.ctf_timemobile;
 
 import android.content.Intent;
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,14 +10,11 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.util.TypedValue;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -48,6 +44,8 @@ public class TopTenTeams extends AppCompatActivity  implements NavigationView.On
         setContentView(R.layout.activity_top_ten_teams);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -60,7 +58,6 @@ public class TopTenTeams extends AppCompatActivity  implements NavigationView.On
         points = findViewById(R.id.tpoints);
 
 
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
         teamList = new ArrayList<>();
         adapter = new TopTeamAdapter(this, teamList);
@@ -117,10 +114,17 @@ public class TopTenTeams extends AppCompatActivity  implements NavigationView.On
             startActivity(TopTen);
         } else if (id == R.id.nav_share) {
             //Share appstore link
+            Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+            sharingIntent.setType("text/plain");
+            String shareBody = "https://play.google.com/store/apps/details?id=com.neonsec.ctftime.ctf_timemobile";
+            sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "CTF Time Unofficial App");
+            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+            startActivity(Intent.createChooser(sharingIntent, "Share via"));
 
         } else if (id == R.id.nav_send) {
             //About the app
-
+            Intent About = new Intent(TopTenTeams.this,AboutActivity.class);
+            startActivity(About);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -156,7 +160,6 @@ public class TopTenTeams extends AppCompatActivity  implements NavigationView.On
                     urlConnection.disconnect();
                 }
             } catch (Exception e) {
-                Log.e("ERROR", e.getMessage(), e);
                 return null;
             }
         }
@@ -170,7 +173,7 @@ public class TopTenTeams extends AppCompatActivity  implements NavigationView.On
             // TODO: do something with the feed
 
             try {
-                    for(int i=0;i<10;i++){
+                    for(int i=0;i<response.length();i++){
                         if(i==0){
                            Cardcolor= "#FFB300";
                         }
@@ -187,7 +190,6 @@ public class TopTenTeams extends AppCompatActivity  implements NavigationView.On
                         JSONObject object = (JSONObject) new JSONTokener(response).nextValue();
                         JSONArray year = object.getJSONArray("2018");
                         JSONObject current = (JSONObject) new JSONTokener(year.getString(i)).nextValue();
-                        //Log.i("Top Team",current.getString("team_name"));
                         String Tname = current.getString("team_name");
                         String Tpoints = current.getString("points");
                         team = new TopTeams(Tname,Float.parseFloat(Tpoints),Cardcolor,i);

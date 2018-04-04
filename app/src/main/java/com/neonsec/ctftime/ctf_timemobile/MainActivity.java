@@ -9,7 +9,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -150,8 +149,6 @@ public class MainActivity extends AppCompatActivity
             long unixTime = System.currentTimeMillis() / 1000L;
             long unixTimeFuture = System.currentTimeMillis()+865000000 / 1000L;
             API_URL = "https://ctftime.org/api/v1/events/?limit=100&start="+unixTime+"&finish="+unixTimeFuture;
-            Log.d("API URL: ",API_URL);
-
             try {
                 URL url = new URL(API_URL);
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
@@ -168,7 +165,6 @@ public class MainActivity extends AppCompatActivity
                     urlConnection.disconnect();
                 }
             } catch (Exception e) {
-                Log.e("ERROR", e.getMessage(), e);
                 return null;
             }
         }
@@ -191,7 +187,6 @@ public class MainActivity extends AppCompatActivity
                     String events = response;
                     JSONArray eventArray = new JSONArray(events);
                     JSONObject current = (JSONObject) new JSONTokener(eventArray.getString(i)).nextValue();
-                    Log.i("EVENT",current.getString("title"));
                     title = current.getString("title");
                     url = current.getString("url");
                     start = current.getString("start");

@@ -13,11 +13,7 @@
             android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_people_black_24dp"
             android:title="Top 10 Teams" />
-        <item
-            android:id="@+id/app_bar_switch"
-            android:icon="@color/cardview_dark_background"
-            android:title="Dark Theme"
-            app:actionLayout="@layout/switch_item" />
+
 
     </group>
 

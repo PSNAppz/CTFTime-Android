@@ -24,7 +24,7 @@
         android:id="@+id/inc"
         layout="@layout/content_main"
         android:layout_width="match_parent"
-        android:layout_height="503dp"
+        android:layout_height="520dp"
         tools:layout_editor_absoluteY="84dp" />
 
     <com.google.android.gms.ads.AdView
