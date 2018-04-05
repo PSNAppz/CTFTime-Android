@@ -5,19 +5,20 @@ package com.neonsec.ctftime.ctf_timemobile;
  */
 
 import android.content.Context;
-import android.icu.util.Calendar;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.squareup.picasso.Picasso;
+import net.danlew.android.joda.JodaTimeAndroid;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormatter;
+import org.joda.time.format.ISODateTimeFormat;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -34,6 +35,7 @@ public class CardsAdapter extends ArrayAdapter<CardModel> {
     @NonNull
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
         ViewHolder holder;
 
         if (convertView == null) {
@@ -51,16 +53,28 @@ public class CardsAdapter extends ArrayAdapter<CardModel> {
         holder.title.setText(model.getTitle());
         holder.type.setText(model.getType());
         holder.url.setText(model.getUrl());
-        holder.start.setText(model.getStart());
+        DateTimeFormatter parser2 = ISODateTimeFormat.dateTimeNoMillis();
+        String jtdate = model.getStart();
+        String dt = parser2.parseDateTime(jtdate).toString();
+        SimpleDateFormat startDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX"	);
+        Date date = null;
+        try {
+            date = startDate.parse(dt);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        holder.start.setText(date.toString());
         try {
             Picasso.get().load(model.getImageURL()).into(holder.imageView);
         }catch (Exception e){
             holder.imageView.setImageResource(R.drawable.ic_future);
         }
         if(model.getOnsite()){
-            holder.onsite.setText("OnSite");
+            holder.onsite.setTextColor(Color.parseColor("#6200ea"));
+            holder.onsite.setText("Onsite");
         }else{
-            holder.onsite.setText("OnLine");
+            holder.onsite.setTextColor(Color.parseColor("#00c853"));
+            holder.onsite.setText("Online");
         }
 
         return convertView;
