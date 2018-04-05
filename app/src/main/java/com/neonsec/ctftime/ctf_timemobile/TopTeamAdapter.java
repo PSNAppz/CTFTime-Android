@@ -37,16 +37,17 @@ public class TopTeamAdapter extends RecyclerView.Adapter<TopTeamAdapter.MyViewHo
         TopTeams team = teamList.get(position);
         holder.teamName.setText(""+team.getName());
         holder.teamPoint.setText(""+team.getPoints());
-        if(team.getPos() != 0){
-            holder.image.setImageResource(R.drawable.ic_team);
-        }
+        holder.teamName.setTextColor(Color.WHITE);
+        holder.teamPoint.setTextColor(Color.WHITE);
+        holder.image.setImageResource(R.mipmap.ic_team);
         if (team.getPos() == 0){
-            holder.image.setImageResource(R.drawable.ic_trophy);
+            holder.image.setImageResource(R.mipmap.ic_first);
         }
-
+        if(team.getPos() == 1){
+            holder.image.setImageResource(R.mipmap.ic_second);
+        }
         if(team.getPos() == 2){
-            holder.teamName.setTextColor(Color.WHITE);
-            holder.teamPoint.setTextColor(Color.WHITE);
+            holder.image.setImageResource(R.mipmap.ic_third);
         }
         holder.card.setCardBackgroundColor(Color.parseColor(team.getColor()));
 

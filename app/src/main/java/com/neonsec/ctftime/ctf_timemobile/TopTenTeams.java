@@ -168,23 +168,13 @@ public class TopTenTeams extends AppCompatActivity  implements NavigationView.On
             if (response == null) {
                 response = "THERE WAS AN ERROR";
             }
-            //Log.i("INFO", response);
-            // TODO: check this.exception
-            // TODO: do something with the feed
-
             try {
                     for(int i=0;i<response.length();i++){
                         if(i==0){
-                           Cardcolor= "#FFB300";
-                        }
-                        else if(i==1){
-                            Cardcolor = "#9E9E9E";
-                        }
-                        else if(i==2){
-                            Cardcolor = "#6D4C41";
+                           Cardcolor= "#37474f";
                         }
                         else{
-                            Cardcolor = "#FAFAFA";
+                            Cardcolor = "#37474f";
                         }
 
                         JSONObject object = (JSONObject) new JSONTokener(response).nextValue();
@@ -197,11 +187,6 @@ public class TopTenTeams extends AppCompatActivity  implements NavigationView.On
                         adapter.notifyDataSetChanged();
                     }
 
-
-
-
-               // teamName.setText("Team Name : "+Tname);
-                //points.setText("Points : "+Tpoints);
             } catch (JSONException e) {
                e.printStackTrace();
             }
