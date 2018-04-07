@@ -14,29 +14,28 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.squareup.picasso.Picasso;
-import net.danlew.android.joda.JodaTimeAndroid;
-import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 
 /**
  * @author Alhaytham Alfeel on 10/10/2016.
  */
 
-public class CardsAdapter extends ArrayAdapter<CardModel> {
+public class CardsAdapter extends ArrayAdapter<CardModel>{
+    private CardModel model;
     public CardsAdapter(Context context) {
         super(context, R.layout.card_item);
     }
 
     @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
-        ViewHolder holder;
+        final ViewHolder holder;
 
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -49,7 +48,7 @@ public class CardsAdapter extends ArrayAdapter<CardModel> {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        CardModel model = getItem(position);
+        model = getItem(position);
         holder.title.setText(model.getTitle());
         holder.type.setText(model.getType());
         holder.url.setText(model.getUrl());
@@ -58,6 +57,7 @@ public class CardsAdapter extends ArrayAdapter<CardModel> {
         String dt = parser2.parseDateTime(jtdate).toString();
         SimpleDateFormat startDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX"	);
         Date date = null;
+
         try {
             date = startDate.parse(dt);
         } catch (ParseException e) {
@@ -80,10 +80,10 @@ public class CardsAdapter extends ArrayAdapter<CardModel> {
         return convertView;
     }
 
-    static class ViewHolder {
+
+    class ViewHolder {
         ImageView imageView;
         TextView title,type,url,onsite,start;
-
 
         ViewHolder(View view) {
             imageView = (ImageView) view.findViewById(R.id.image);
